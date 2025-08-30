@@ -7,7 +7,7 @@ export function firstInFirstOut(referenceString, frameNumber) {
     let pageInMemArray = [];
     let pageNotInMem = [];
     let pageNotInMemArray = [];
-    let referenceMapArray = [];
+   
     for (let i = 0; i < referenceString.length; i++) {
             if (pageInMem.includes(referenceString[i])) {
                 pageFaults.push('');
@@ -29,7 +29,7 @@ export function firstInFirstOut(referenceString, frameNumber) {
         pageInMemArray.push([...pageInMem]);
         pageNotInMemArray.push([...pageNotInMem]);
     }
-    return {pageInMemArray, pageFaults, pageNotInMemArray, referenceMapArray};
+    return {pageInMemArray, pageFaults, pageNotInMemArray};
 }
 
 // LRU->
@@ -40,7 +40,7 @@ export function leastRecentlyUsed(referenceString, frameNumber){
     let pageInMemArray = [];
     let pageNotInMem = [];
     let pageNotInMemArray = [];
-    let referenceMapArray = [];
+    
     for (let i = 0; i < referenceString.length ; i++)
     {
         if (pageInMem.includes(referenceString[i])){
@@ -64,7 +64,7 @@ export function leastRecentlyUsed(referenceString, frameNumber){
         pageInMemArray.push([...pageInMem]);
         pageNotInMemArray.push([...pageNotInMem]);
     }
-    return {pageInMemArray, pageFaults, pageNotInMemArray, referenceMapArray};
+    return {pageInMemArray, pageFaults, pageNotInMemArray};
 }
 
 
@@ -78,7 +78,7 @@ export function optimalPageReplacement(referenceString, frameNumber) {
     let pageInMemArray = [];
     let pageNotInMem = [];
     let pageNotInMemArray = [];
-    let referenceMapArray = [];
+ 
 
     for (let i = 0; i < referenceString.length; i++) {
         let currentPage = referenceString[i];
@@ -120,7 +120,7 @@ export function optimalPageReplacement(referenceString, frameNumber) {
         pageNotInMemArray.push([...pageNotInMem]);
     }
 
-    return { pageInMemArray, pageFaults, pageNotInMemArray, referenceMapArray };
+    return { pageInMemArray, pageFaults, pageNotInMemArray };
 }
 
 
@@ -131,7 +131,7 @@ export function mostRecentlyUsed(referenceString, frameNumber) {
     let pageInMemArray = [];
     let pageNotInMem = [];
     let pageNotInMemArray = [];
-    let referenceMapArray = [];
+
 
     for (let i = 0; i < referenceString.length; i++) {
         let currentPage = referenceString[i];
@@ -157,10 +157,10 @@ export function mostRecentlyUsed(referenceString, frameNumber) {
 
         pageInMemArray.push([...pageInMem]);
         pageNotInMemArray.push([...pageNotInMem]);
-        referenceMapArray.push([...referenceString]);
+       
     }
 
-    return { pageInMemArray, pageFaults, pageNotInMemArray, referenceMapArray };
+    return { pageInMemArray, pageFaults, pageNotInMemArray };
 }
 
 
