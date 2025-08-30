@@ -12,7 +12,7 @@ const Table = ({
     swapToggle,
     animationToggle
 }) => {
-    const { pageInMemArray, pageFaults, pageNotInMemArray, referenceMapArray } = algorithm(
+    const { pageInMemArray, pageFaults, pageNotInMemArray } = algorithm(
         referenceString,
         frameNumber,
         resetTurns
