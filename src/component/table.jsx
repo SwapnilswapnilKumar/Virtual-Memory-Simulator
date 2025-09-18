@@ -1,6 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const Table = ({
     referenceString,
@@ -12,6 +13,9 @@ const Table = ({
     swapToggle,
     animationToggle
 }) => {
+
+    const [showDetails, setShowDetails] = useState(false);
+
     const { pageInMemArray, pageFaults, pageNotInMemArray } = algorithm(
         referenceString,
         frameNumber,
@@ -25,10 +29,50 @@ const Table = ({
         visible: { opacity: 1, x: 0 }
     };
 
+    const totalFaults = pageFaults.filter((p) => p === "F").length;
+    const totalHits = pageFaults.length - totalFaults;
+    const totalRequests = pageFaults.length;
+
+    const faultRatio = (totalFaults / totalRequests).toFixed(2);
+    const hitRatio = (totalHits / totalRequests).toFixed(2);
+
+
     return (
         <div>
-            <label className="font-bold text-xl bg-yellow-300">{algorithmLabel}:</label>
-            <div className="overflow-auto mt-2">
+            <div className="flex items-center gap-2">
+                <label className="font-bold text-xl bg-yellow-300 px-2 py-1 rounded">
+                    {algorithmLabel}:
+                </label>
+                <button
+                    onClick={() => setShowDetails(true)}
+                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
+                >
+                    Get Details
+                </button>
+            </div>
+
+            {showDetails && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+                        <h2 className="text-lg font-bold mb-4 text-center">{algorithmLabel} - Details</h2>
+                        <p className="mb-2">Page Faults: <span className="font-semibold">{totalFaults}</span></p>
+                        <p className="mb-2">Page Hits: <span className="font-semibold">{totalHits}</span></p>
+                        <p className="mb-2">Fault Ratio: <span className="font-semibold">{faultRatio}</span></p>
+                        <p className="mb-2">Hit Ratio: <span className="font-semibold">{hitRatio}</span></p>
+
+                        <div className="flex justify-center mt-4">
+                            <button
+                                onClick={() => setShowDetails(false)}
+                                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <div className="overflow-auto mb-10">
                 <table className="min-w-full border border-gray-300 text-sm">
                     <thead className="bg-gray-800 text-white">
                         <tr>
@@ -116,7 +160,8 @@ const Table = ({
                                 animationToggle ? (
                                     <motion.th
                                         key={idx}
-                                        className="px-2 py-1 border border-gray-300 text-center"
+                                        className={`px-2 py-1 border border-gray-300 text-center ${f === "F" ? "text-red-500" : f === "H" ? "text-green-500 text-lg font-bold" : ""
+                                            }`}
                                         initial="hidden"
                                         animate="visible"
                                         variants={fadeRightVariant}
@@ -127,7 +172,8 @@ const Table = ({
                                 ) : (
                                     <th
                                         key={idx}
-                                        className="px-2 py-1 border border-gray-300 text-center"
+                                        className={`px-2 py-1 border border-gray-300 text-center ${f === "F" ? "text-red-500" : f === "H" ? "text-green-500 text-lg font-bold" : ""
+                                            }`}
                                     >
                                         {f}
                                     </th>
