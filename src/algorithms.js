@@ -10,7 +10,8 @@ export function firstInFirstOut(referenceString, frameNumber) {
    
     for (let i = 0; i < referenceString.length; i++) {
             if (pageInMem.includes(referenceString[i])) {
-                pageFaults.push('');
+                // pageFaults.push('');
+                pageFaults.push('H');
             } else {
 
                 pageFaults.push('F');
@@ -44,7 +45,8 @@ export function leastRecentlyUsed(referenceString, frameNumber){
     for (let i = 0; i < referenceString.length ; i++)
     {
         if (pageInMem.includes(referenceString[i])){
-            pageFaults.push('');
+            // pageFaults.push('');
+            pageFaults.push('H');
             pageInMem.splice(pageInMem.indexOf(referenceString[i]),1);
             pageInMem.unshift(referenceString[i]);
         }
@@ -84,7 +86,8 @@ export function optimalPageReplacement(referenceString, frameNumber) {
         let currentPage = referenceString[i];
 
         if (pageInMem.includes(currentPage)) {
-            pageFaults.push('');
+            // pageFaults.push('');
+            pageFaults.push('H');
         } else {
             pageFaults.push('F');
             if (pageInMem.length < frameNumber) {
@@ -137,7 +140,8 @@ export function mostRecentlyUsed(referenceString, frameNumber) {
         let currentPage = referenceString[i];
 
         if (pageInMem.includes(currentPage)) {
-            pageFaults.push('');
+            // pageFaults.push('');
+            pageFaults.push('H');
             pageInMem.splice(pageInMem.indexOf(currentPage), 1);
             pageInMem.unshift(currentPage);
         } else {
